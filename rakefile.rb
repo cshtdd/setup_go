@@ -9,6 +9,11 @@ task :setup do
     sh "mkdir -p #{dir_to_create}"
 end
 
+task :debug do
+    actual_go_path = `echo $GOPATH`
+    puts "$GOPATH: #{actual_go_path}"
+end
+
 def read_variable(message, default_value)
     puts message
     user_input = STDIN.gets.chomp
