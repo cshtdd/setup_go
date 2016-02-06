@@ -6,6 +6,7 @@ task :setup do
 
     dir_to_create = "#{go_path}/src/github.com/#{username}"
     puts "Creating directory #{dir_to_create}"
+    sh "mkdir -p #{dir_to_create}"
 end
 
 def read_variable(message, default_value)
