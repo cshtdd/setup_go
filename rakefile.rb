@@ -29,6 +29,8 @@ end
 def init_variables(go_path)
     home_path = ENV['HOME']
     bash_profile_path = "#{home_path}/.bash_profile"
+    puts "Modifying #{bash_profile_path}..."
+
     open(bash_profile_path, 'a') do |f|
         f.puts
         f.puts "##Generated code START"
@@ -39,6 +41,8 @@ def init_variables(go_path)
         f.puts "##Generated code END"
         f.puts
     end
+
+    puts "MAKE SURE TO OPEN A NEW TERMINAL"
 end
 
 def go_path_has_already_been_set
