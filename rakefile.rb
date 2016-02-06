@@ -3,6 +3,7 @@ task :default => :setup
 task :setup do
     go_path = read_variable "What do you want your $GOPATH to be? e.g. $HOME/devroot/go", "$HOME/devroot/go"
     create_source_folder go_path
+    init_variables go_path unless go_path_has_already_been_set
 end
 
 task :debug do
@@ -23,4 +24,13 @@ def create_source_folder(go_path)
     dir_to_create = "#{go_path}/src/github.com/#{username}"
     puts "Creating directory #{dir_to_create}"
     sh "mkdir -p #{dir_to_create}"
+end
+
+def init_variables(go_path)
+    puts "init_variables #{go_path}"
+end
+
+def go_path_has_already_been_set
+    bash_profile_contents = `cat $HOME/.bash_profile`
+    return bash_profile_contents.include? "$GOPATH"
 end
