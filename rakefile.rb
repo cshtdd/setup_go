@@ -27,10 +27,21 @@ def create_source_folder(go_path)
 end
 
 def init_variables(go_path)
-    puts "init_variables #{go_path}"
+    home_path = ENV['HOME']
+    bash_profile_path = "#{home_path}/.bash_profile"
+    open(bash_profile_path, 'a') do |f|
+        f.puts
+        f.puts "##Generated code START"
+        f.puts "export GOPATH=#{go_path}"
+        f.puts "export GOROOT=/usr/local/opt/go/libexec"
+        f.puts "export PATH=$PATH:$GOPATH/bin"
+        f.puts "export PATH=$PATH:$GOROOT/bin"
+        f.puts "##Generated code END"
+        f.puts
+    end
 end
 
 def go_path_has_already_been_set
     bash_profile_contents = `cat $HOME/.bash_profile`
-    return bash_profile_contents.include? "$GOPATH"
+    return bash_profile_contents.include? "GOPATH"
 end
